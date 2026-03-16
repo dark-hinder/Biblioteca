@@ -63,8 +63,22 @@ class Livro(models.Model):
     data_plub = models.DateField(verbose_name="Data de publicação do livro")
     status = models.BooleanField(verbose_name="Status do livro")
     
+
     def __str__(self):
         return f'{self.nome}, {self.autor}'
     class Meta:
         verbose_name = "Livro"
         verbose_name_plural = "Livros"
+
+class Emprestimo(models.Model):
+    leitor = models.ForeignKey(Leitor, on_delete=models.CASCADE,verbose_name="Leitor")
+    livro = models.ForeignKey(Livro, on_delete=models.CASCADE, verbose_name="Livro emprestado")
+    data_saida = models.DateField(verbose_name="Data de saída")
+    data_prevista = models.DateField(verbose_name="Data prevista de devolução")
+    data_devolucao = models.DateField(null=True, blank=True, verbose_name="Data real de devolução")
+
+    def __str__(self):
+        return f"{self.leitor} , {self.livro.nome} , {self.data_saida} , {self.data_devolucao}"
+    class Meta:
+        verbose_name = "Empréstimo"
+        verbose_name_plural = "Empréstimos"
