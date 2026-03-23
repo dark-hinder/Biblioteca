@@ -69,25 +69,26 @@
             <th scope="col">Status</th>
             <th scope="col">Excluir</th>
         </tr>
+        <tbody>
+          {% for livro in livros %}
+          <tr>
+              <td>{{ livro.nome }}</td>
+              <td>{{ livro.autor }}</td>
+              <td>{{ livro.editora }}</td>
+              <td>
+                {% for genero in livro.genero.all %}
+                {{ genero.nome }}{% if not forloop.last %},
+                {% endif %}
+                {% endfor %}
+              </td>
+              <td>{{ livro.preco }}</td>
+              <td>{{ livro.data_plub }}</td>
+              <td>{{ livro.status }}</td>
+              <td><a href="{% url 'delete' livro.id %}" class="btn btn-danger">Excluir</a></td></tr>
+          {% endfor %}
+        </tbody>
     </thead>
-    <tbody>
-      {% for livros in livros %}
-      <tr>
-          <td>{{ livros.nome }}</td>
-          <td>{{ livros.autor }}</td>
-          <td>{{ livros.editora }}</td>
-          <td>
-            {% for genero in livros.genero.all %}
-            {{ genero.nome }}{% if not forloop.last %},
-            {% endif %}
-            {% endfor %}
-          </td>
-          <td>{{ livros.preco }}</td>
-          <td>{{ livros.data_plub }}</td>
-          <td>{{ livros.status }}</td>
-          <td><a href="delete/{{ livros.id }}" class="btn btn-danger">Excluir</a></td></tr>
-      {% endfor %}
-    </tbody>
+    
             
 
   <!-- Incluindo jQuery e Bootstrap JS -->
